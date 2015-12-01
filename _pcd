@@ -1,0 +1,20 @@
+#compdef pcd
+
+_pcd () {
+    if [ -z "$PREFIX" ]; then
+        compadd -S '/' $(_adb_ls_folder_only ${PREFIX})
+    else
+        compadd -S '/' -p ${PREFIX} $(_adb_ls_folder_only ${PREFIX})
+    fi
+}
+
+_adb_ls_folder_only () {
+    if [ -z "$1" ]; then
+        cd_for_prefix=""
+    else
+        cd_for_prefix="cd $1;"
+    fi
+    adb shell "cd $PHONE_PWD; $cd_for_prefix ls -l" | tr -d '\r' | grep '^d' | awk '{print $6}'
+}
+
+_pcd "$@"
