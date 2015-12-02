@@ -4,17 +4,25 @@ _pcd () {
     if [ -z "$PREFIX" ]; then
         compadd -S '/' $(_adb_ls_folder_only ${PREFIX})
     else
-        compadd -S '/' -p ${PREFIX} $(_adb_ls_folder_only ${PREFIX})
+        case $PREFIX in
+            */*) pure_folder_prefix="${PREFIX%/*}/" ;;
+            *)   pure_folder_prefix=""
+        esac
+        compadd -S '/' -p "${pure_folder_prefix}" $(_adb_ls_folder_only ${PREFIX})
     fi
 }
 
 _adb_ls_folder_only () {
     if [ -z "$1" ]; then
-        cd_for_prefix=""
+        cd_for_prefix="true"
     else
-        cd_for_prefix="cd $1;"
+        case $1 in
+            */*) relative_dir="${1%/*}/" ;;
+            *)   relative_dir="." ;;
+        esac
+        cd_for_prefix="cd $relative_dir"
     fi
-    adb shell "cd $PHONE_PWD; $cd_for_prefix ls -l" | tr -d '\r' | grep '^d' | awk '{print $6}'
+    adb shell "cd $PHONE_PWD && $cd_for_prefix && ls -l" | tr -d '\r' | grep '^[dl]' | grep -v 'Permission denied' | awk '{print $6}'
 }
 
 _pcd "$@"
