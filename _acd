@@ -1,6 +1,6 @@
-#compdef pcd
+#compdef acd
 
-_pcd () {
+_acd () {
     if [ -z "$PREFIX" ]; then
         compadd -S '/' $(_adb_ls_folder_only ${PREFIX})
     else
@@ -22,7 +22,7 @@ _adb_ls_folder_only () {
         esac
         cd_for_prefix="cd $relative_dir"
     fi
-    adb shell "cd $PHONE_PWD && $cd_for_prefix && ls -l" | tr -d '\r' | grep '^[dl]' | grep -v 'Permission denied' | awk '{print $6}'
+    adb shell "cd $ANDROID_PWD && $cd_for_prefix && ls -l" | tr -d '\r' | grep '^[dl]' | grep -v 'Permission denied' | awk '{print $6}'
 }
 
-_pcd "$@"
+_acd "$@"

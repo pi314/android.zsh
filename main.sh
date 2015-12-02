@@ -1,1 +1,1 @@
-export PHONE_PWD='/'
+export ANDROID_PWD='/'

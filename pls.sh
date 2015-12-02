@@ -1,3 +1,3 @@
-pls () {
-    adb shell "cd $PHONE_PWD; ls $@"
+als () {
+    adb shell "cd $ANDROID_PWD; ls $@"
 }
