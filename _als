@@ -1,15 +1,15 @@
-#compdef acd
+#compdef als
 
-_acd () {
+_als () {
     if [ -z "$PREFIX" ]; then
-        compadd -S '' $(_adb_ls_folder_only)
+        compadd -S '' $(_adb_ls_with_slash)
     else
         case $PREFIX in
             */*) pure_folder_prefix="${PREFIX%/*}/" ;;
             *)   pure_folder_prefix=""
         esac
-        compadd -S '' -p "${pure_folder_prefix}" $(_adb_ls_folder_only ${pure_folder_prefix})
+        compadd -S '' -p "${pure_folder_prefix}" $(_adb_ls_with_slash ${pure_folder_prefix})
     fi
 }
 
-_acd "$@"
+_als "$@"
