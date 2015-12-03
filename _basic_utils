@@ -1,6 +1,6 @@
 #compdef arm als atouch
 
-_basic_completions () {
+_basic_utils () {
     if [ -z "$PREFIX" ]; then
         compadd -S '' $(_adb_ls_with_slash)
     else
@@ -12,4 +12,4 @@ _basic_completions () {
     fi
 }
 
-_basic_completions "$@"
+_basic_utils "$@"
