@@ -1,7 +1,7 @@
 aget () {
-    # aget /dir/dir/filename
-    # aget dir/dir/filename
-    # aget filename
+    # aget /dir/dir/filename [target-path]
+    # aget dir/dir/filename [target-path]
+    # aget filename [target-path]
     if [ -z "$1" ]; then
         echo "Usage: aget filepath [target-path]"
         false
