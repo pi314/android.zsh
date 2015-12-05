@@ -1,0 +1,19 @@
+#compdef aput
+
+_aput () {
+    _arguments '1: :{_files}' '2: :->ANDROID_PATH'
+    if [ "$state" = "ANDROID_PATH" ]; then
+        if [ -z "$PREFIX" ]; then
+            compadd -S '' $(_adb_ls_folder_only)
+        else
+            case $PREFIX in
+                */*) pure_folder_prefix="${PREFIX%/*}/" ;;
+                *)   pure_folder_prefix=""
+            esac
+            compadd -S '' -p "${pure_folder_prefix}" $(_adb_ls_folder_only ${pure_folder_prefix})
+        fi
+    fi
+
+}
+
+_aput "$@"
