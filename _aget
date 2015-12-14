@@ -4,13 +4,13 @@ _aget () {
     _arguments '1: :->ANDROID_PATH' '2: :{_files}'
     if [ "$state" = "ANDROID_PATH" ]; then
         if [ -z "$PREFIX" ]; then
-            compadd -S '' $(_adb_ls_folder_only)
+            compadd -S '' $(_adb_ls_with_slash)
         else
             case $PREFIX in
                 */*) pure_folder_prefix="${PREFIX%/*}/" ;;
                 *)   pure_folder_prefix=""
             esac
-            compadd -S '' -p "${pure_folder_prefix}" $(_adb_ls_folder_only ${pure_folder_prefix})
+            compadd -S '' -p "${pure_folder_prefix}" $(_adb_ls_with_slash ${pure_folder_prefix})
         fi
     fi
 
